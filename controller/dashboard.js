@@ -1,0 +1,45 @@
+import { api_charcoal } from "./api.js";
+
+let token = sessionStorage.getItem("x-auth-token");
+$.ajaxSetup({
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+    Accept: "application/x-www-form-urlencoded",
+    "x-auth-token": token,
+  },
+});
+
+$(document).ready(function () {
+  let token = sessionStorage.getItem("x-auth-token");
+  if (!token) {
+    window.location = "./sign-in.html";
+  }
+  $(".sign-out").on("click", (e) => {
+    sessionStorage.clear();
+  });
+  $(".sidebar-menu").tree();
+});
+
+$.get(`${api_charcoal}/dashboard/`, (result) => {
+  let raw_materials = result.raw_materials;
+  let production_goods = result.production_goods;
+  let total_production = result.total_production_goods;
+  let raw_box = "";
+  let production_box = "";
+
+  raw_materials.forEach((raw, i) => {
+    raw_box += `<span class="info-box-number">${raw.weight} ${raw.name}</span>`;
+    if (i + 1 === raw_materials.length) {
+      raw_box += `<span class="progress-description">Available stock is safe</span>`;
+    }
+  });
+
+  production_goods.forEach((production, i) => {
+    production_box += `<span class="info-box-number">${production.weight} ${production.name}</span>`;
+    if (i + 1 === production_goods.length) {
+      production_box += `<span class="progress-description"> ${total_production} Total Production </span>`;
+    }
+  });
+  $("#raw_material").append(raw_box);
+  $("#production_goods").append(production_box);
+});
