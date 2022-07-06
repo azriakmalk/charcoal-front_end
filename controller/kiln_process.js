@@ -70,9 +70,6 @@ $.get("http://localhost:3000/kiln/", (result) => {
         weight: $("#weight").val(),
         date_at: $("#date_at").val(),
       };
-<<<<<<< HEAD
-      await $.post("http://localhost:3000/kiln/add", data);
-=======
       await $.post(`${api_charcoal}/kiln/add`, data, (result) => {
         if (result.saveKiln) {
           window.location.reload();
@@ -80,7 +77,6 @@ $.get("http://localhost:3000/kiln/", (result) => {
           alert(result.message);
         }
       });
->>>>>>> 762c3b2 (add session storage api)
     } catch (error) {
       console.log(error);
     }
