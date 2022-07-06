@@ -1,3 +1,5 @@
+let api_charcoal = sessionStorage.getItem("api_charcoal");
+
 let token = sessionStorage.getItem("x-auth-token");
 $.ajaxSetup({
   headers: {

@@ -1,3 +1,3 @@
-const api_charcoal = "https://9efe-103-195-58-20.ap.ngrok.io";
+const api_charcoal = "https://charcoal-api.herokuapp.com/";
 
 export { api_charcoal };

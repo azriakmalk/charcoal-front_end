@@ -1,3 +1,5 @@
+let api_charcoal = sessionStorage.getItem("api_charcoal");
+
 $(document).ready(function () {
   let token = sessionStorage.getItem("x-auth-token");
   if (!token) {

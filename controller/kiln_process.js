@@ -1,3 +1,5 @@
+let api_charcoal = sessionStorage.getItem("api_charcoal");
+
 let token = sessionStorage.getItem("x-auth-token");
 $.ajaxSetup({
   headers: {
@@ -32,21 +34,21 @@ $.get("http://localhost:3000/kiln/", (result) => {
 
   kilns.forEach((kiln) => {
     tbody += `<tr>
-                              <td>
-                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                       <li>
-                                          <button class="btn-delete btn-danger" data-id-kiln="${kiln.id}" data-toggle="modal" data-target="#delete">Delete</button>
-                                       </li>
-                                    </ul>
-                                 </div>
-                              </td>
-                              <td>${kiln.item_name}</td>
-                              <td>${kiln.weight}</td>
-                              <td>${kiln.date_at}</td>
-                           </tr>
-                           `;
+                  <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                              <button class="btn-delete btn-danger" data-id-kiln="${kiln.id}" data-toggle="modal" data-target="#delete">Delete</button>
+                            </li>
+                        </ul>
+                      </div>
+                  </td>
+                  <td>${kiln.item_name}</td>
+                  <td>${kiln.weight}</td>
+                  <td>${kiln.date_at}</td>
+                </tr>
+                `;
   });
 
   items.forEach((item) => {
@@ -61,13 +63,24 @@ $.get("http://localhost:3000/kiln/", (result) => {
   $("#item_edit").append(option);
 
   $("#btn-save").on("click", async (e) => {
+    e.preventDefault();
     try {
       let data = {
         id_item: $("#item").val(),
         weight: $("#weight").val(),
         date_at: $("#date_at").val(),
       };
+<<<<<<< HEAD
       await $.post("http://localhost:3000/kiln/add", data);
+=======
+      await $.post(`${api_charcoal}/kiln/add`, data, (result) => {
+        if (result.saveKiln) {
+          window.location.reload();
+        } else {
+          alert(result.message);
+        }
+      });
+>>>>>>> 762c3b2 (add session storage api)
     } catch (error) {
       console.log(error);
     }

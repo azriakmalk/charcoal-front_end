@@ -1,9 +1,12 @@
 $(document).ready(async () => {
+  sessionStorage.setItem("api_charcoal", `https://charcoal-api.herokuapp.com`);
   let token = sessionStorage.getItem("x-auth-token");
+  let api_charcoal = sessionStorage.getItem("api_charcoal");
+
   let data = {};
 
   if (token) {
-    window.location = "./dashboard.html";
+    window.location = "./index.html";
   }
 
   $("#username").on("change", (e) => {
@@ -27,7 +30,7 @@ $(document).ready(async () => {
       e.preventDefault();
       await $.post("http://localhost:3000/users/login", data, (result) => {
         sessionStorage.setItem("x-auth-token", `${result.token}`);
-        window.location = "./dashboard.html";
+        window.location = "./index.html";
       });
     } catch (error) {
       alert(error.responseJSON.errors[0].msg);

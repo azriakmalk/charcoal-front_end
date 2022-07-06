@@ -1,4 +1,4 @@
-import { api_charcoal } from "./api.js";
+let api_charcoal = sessionStorage.getItem("api_charcoal");
 
 let token = sessionStorage.getItem("x-auth-token");
 $.ajaxSetup({
@@ -10,7 +10,6 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
-  let token = sessionStorage.getItem("x-auth-token");
   if (!token) {
     window.location = "./sign-in.html";
   }
