@@ -25,7 +25,7 @@ $(document).ready(function () {
   });
 });
 
-$.get("http://localhost:3000/items/", (result) => {
+$.get(`${api_charcoal}/items/`, (result) => {
   let items = result.items;
   let categorys = result.categorys;
   let raws = result.raws;
@@ -69,12 +69,15 @@ $.get("http://localhost:3000/items/", (result) => {
 
   $("#btn-save").on("click", async (e) => {
     try {
+      e.preventDefault();
       let data = {
         name: $("#name").val(),
         id_category: $("#category").val(),
         id_raw: $("#raw").val(),
       };
-      await $.post("http://localhost:3000/items/add", data);
+      await $.post(`${api_charcoal}/items/add`, data).done((e) => {
+        window.location.reload();
+      });
     } catch (error) {
       console.log(error);
     }
@@ -86,7 +89,10 @@ $.get("http://localhost:3000/items/", (result) => {
       .off("click")
       .on(`click`, async (e) => {
         try {
-          await $.post("http://localhost:3000/items/delete", { id: id_item });
+          e.preventDefault();
+          await $.post(`${api_charcoal}/items/delete`, { id: id_item }).done((e) => {
+            window.location.reload();
+          });
         } catch (error) {
           console.log(error);
         }
@@ -108,13 +114,16 @@ $.get("http://localhost:3000/items/", (result) => {
 
     $("#edit-item").on("click", async (e) => {
       try {
+        e.preventDefault();
         let data = {
           id: id_item,
           name: $("#name_edit").val(),
           id_category: $("#category_edit").val(),
           id_raw: $("#raw_edit").val(),
         };
-        await $.post("http://localhost:3000/items/edit", data);
+        await $.post(`${api_charcoal}/items/edit`, data).done((e) => {
+          window.location.reload();
+        });
       } catch (error) {
         console.log(error);
       }

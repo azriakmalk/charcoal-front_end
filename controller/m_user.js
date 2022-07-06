@@ -25,7 +25,7 @@ $(document).ready(function () {
   });
 });
 
-$.get("http://localhost:3000/users/", (result) => {
+$.get(`${api_charcoal}/users/`, (result) => {
   let users = result.users;
   let tbody = "";
   users.forEach((user) => {
@@ -49,7 +49,7 @@ $.get("http://localhost:3000/users/", (result) => {
   $("#example2 > tbody tr:first-child").remove();
   $("#example2 > tbody").append(tbody);
 
-  $.get("http://localhost:3000/level/", (result) => {
+  $.get(`${api_charcoal}/level/`, (result) => {
     let levels = result.levels;
     let option = "";
     levels.forEach((level) => {
@@ -61,12 +61,15 @@ $.get("http://localhost:3000/users/", (result) => {
 
   $("#btn-save").on("click", async (e) => {
     try {
+      e.preventDefault();
       let data = {
         username: $("#username").val(),
         password: $("#password").val(),
         id_level: $("#level").val(),
       };
-      await $.post("http://localhost:3000/users/add", data);
+      await $.post(`${api_charcoal}/users/add`, data).done((e) => {
+        window.location.reload();
+      });
     } catch (error) {
       alert(error.responseJSON.errors[0].msg);
     }
@@ -78,7 +81,10 @@ $.get("http://localhost:3000/users/", (result) => {
       .off("click")
       .on(`click`, async (e) => {
         try {
-          await $.post("http://localhost:3000/users/delete", { id: id_user });
+          e.preventDefault();
+          await $.post(`${api_charcoal}/users/delete`, { id: id_user }).done((e) => {
+            window.location.reload();
+          });
         } catch (error) {
           console.log(error);
         }
@@ -93,13 +99,14 @@ $.get("http://localhost:3000/users/", (result) => {
     $("#edit-user").on("click", async (e) => {
       e.preventDefault();
       try {
+        e.preventDefault();
         let data = {
           id: id_user,
           username: $("#username_edit").val(),
           password: $("#password_edit").val(),
           id_level: $("#level_edit").val(),
         };
-        await $.post("http://localhost:3000/users/edit", data, (result) => {
+        await $.post(`${api_charcoal}/users/edit`, data).done((e) => {
           window.location.reload();
         });
       } catch (error) {

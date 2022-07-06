@@ -6,7 +6,7 @@ $(document).ready(async () => {
   let data = {};
 
   if (token) {
-    window.location = "./index.html";
+    window.location = "./dashboard.html";
   }
 
   $("#username").on("change", (e) => {
@@ -28,9 +28,9 @@ $(document).ready(async () => {
   $("#btn-login").on("click", async (e) => {
     try {
       e.preventDefault();
-      await $.post("http://localhost:3000/users/login", data, (result) => {
+      await $.post(`${api_charcoal}/users/login`, data, (result) => {
         sessionStorage.setItem("x-auth-token", `${result.token}`);
-        window.location = "./index.html";
+        window.location = "./dashboard.html";
       });
     } catch (error) {
       alert(error.responseJSON.errors[0].msg);

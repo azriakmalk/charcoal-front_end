@@ -25,7 +25,7 @@ $(document).ready(function () {
   });
 });
 
-$.get("http://localhost:3000/category/", (result) => {
+$.get(`${api_charcoal}/category/`, (result) => {
   let categorys = result.categorys;
   let tbody = "";
   categorys.forEach((category) => {
@@ -50,12 +50,15 @@ $.get("http://localhost:3000/category/", (result) => {
   $("#example2 > tbody").append(tbody);
 
   $("#btn-save").on("click", async (e) => {
+    e.preventDefault();
     try {
       let data = {
         name: $("#name").val(),
         description: $("#desc").val(),
       };
-      await $.post("http://localhost:3000/category/add", data);
+      await $.post(`${api_charcoal}/category/add`, data).done((e) => {
+        window.location.reload();
+      });
     } catch (error) {
       console.log(error);
     }
@@ -68,8 +71,11 @@ $.get("http://localhost:3000/category/", (result) => {
       .off("click")
       .on(`click`, async (e) => {
         try {
-          await $.post("http://localhost:3000/category/delete", {
+          e.preventDefault();
+          await $.post(`${api_charcoal}/category/delete`, {
             id: id_category,
+          }).done((e) => {
+            window.location.reload();
           });
         } catch (error) {
           console.log(error);
@@ -85,12 +91,15 @@ $.get("http://localhost:3000/category/", (result) => {
 
     $("#edit-category").on("click", async (e) => {
       try {
+        e.preventDefault();
         let data = {
           id: id_category,
           name: $("#name_edit").val(),
           description: $("#desc_edit").val(),
         };
-        await $.post("http://localhost:3000/category/edit", data);
+        await $.post(`${api_charcoal}/category/edit`, data).done((e) => {
+          window.location.reload();
+        });
       } catch (error) {
         console.log(error);
       }

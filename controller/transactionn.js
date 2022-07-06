@@ -21,7 +21,7 @@ $(document).ready(function () {
   });
 });
 
-$.get("http://localhost:3000/transaction/", (result) => {
+$.get(`${api_charcoal}/transaction/`, (result) => {
   let transactions = result.transactions;
   let items = result.items;
   let tbody = "";
@@ -60,13 +60,16 @@ $.get("http://localhost:3000/transaction/", (result) => {
 
   $("#btn-save").on("click", async (e) => {
     try {
+      e.preventDefault();
       let data = {
         id_item: $("#item").val(),
         date_in: $("#date_in").val(),
         delivery_note: $("#delivery_note").val(),
         weight: $("#weight").val(),
       };
-      await $.post("http://localhost:3000/transaction/add", data);
+      await $.post(`${api_charcoal}/transaction/add`, data).done((e) => {
+        window.location.reload();
+      });
     } catch (error) {
       alert(error.responseJSON.errors[0].msg);
     }
@@ -78,8 +81,11 @@ $.get("http://localhost:3000/transaction/", (result) => {
       .off("click")
       .on(`click`, async (e) => {
         try {
-          await $.post("http://localhost:3000/transaction/delete", {
+          e.preventDefault();
+          await $.post(`${api_charcoal}/transaction/delete`, {
             id: id_transaction,
+          }).done((e) => {
+            window.location.reload();
           });
         } catch (error) {
           console.log(error);
@@ -102,7 +108,7 @@ $.get("http://localhost:3000/transaction/", (result) => {
   //             password:$('#password_edit').val(),
   //             id_level: $('#level_edit').val(),
   //          }
-  //          await $.post('http://localhost:3000/users/edit',data, (result) => {
+  //          await $.post('${api_charcoal}/users/edit',data, (result) => {
   //             window.location.reload();
   //          });
   //       }catch(error){

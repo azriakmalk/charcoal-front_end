@@ -25,7 +25,7 @@ $(document).ready(function () {
   });
 });
 
-$.get("http://localhost:3000/level/", (result) => {
+$.get(`${api_charcoal}/level/`, (result) => {
   let levels = result.levels;
   let tbody = "";
   levels.forEach((level) => {
@@ -50,12 +50,20 @@ $.get("http://localhost:3000/level/", (result) => {
   $("#example2 > tbody").append(tbody);
 
   $("#btn-save").on("click", async (e) => {
+    e.preventDefault();
     try {
       let data = {
         name: $("#name").val(),
         description: $("#desc").val(),
       };
-      await $.post("http://localhost:3000/level/add", data);
+      $.ajax({
+        type: "POST",
+        url: `${api_charcoal}/level/add`,
+        data: data,
+        success : (e) => {
+          window.location.reload();
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -63,12 +71,15 @@ $.get("http://localhost:3000/level/", (result) => {
 
   $(".btn-delete").on("click", (e) => {
     const id_level = $(e.target).attr("data-id-level");
-
+    
     $("#delete-level")
-      .off("click")
-      .on(`click`, async (e) => {
-        try {
-          await $.post("http://localhost:3000/level/delete", { id: id_level });
+    .off("click")
+    .on(`click`, async (e) => {
+      try {
+          e.preventDefault();
+          $.post(`${api_charcoal}/level/delete`, { id: id_level }).done((e) => {
+            window.location.reload();
+          });
         } catch (error) {
           console.log(error);
         }
@@ -83,12 +94,15 @@ $.get("http://localhost:3000/level/", (result) => {
 
     $("#edit-level").on("click", async (e) => {
       try {
+        e.preventDefault();
         let data = {
           id: id_level,
           name: $("#name_edit").val(),
           description: $("#desc_edit").val(),
         };
-        await $.post("http://localhost:3000/level/edit", data);
+        await $.post(`${api_charcoal}/level/edit`, data).done((e) => {
+          window.location.reload();
+        });
       } catch (error) {
         console.log(error);
       }

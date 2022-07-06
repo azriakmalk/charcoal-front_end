@@ -26,7 +26,7 @@ $(document).ready(function () {
   });
 });
 
-$.get("http://localhost:3000/kiln/", (result) => {
+$.get(`${api_charcoal}/kiln/`, (result) => {
   let kilns = result.kilns;
   let items = result.items;
   let tbody = "";
@@ -89,7 +89,10 @@ $.get("http://localhost:3000/kiln/", (result) => {
       .off("click")
       .on(`click`, async (e) => {
         try {
-          await $.post("http://localhost:3000/kiln/delete", { id: id_kiln });
+          e.preventDefault();
+          await $.post(`${api_charcoal}/kiln/delete`, { id: id_kiln }).done((e) => {
+            window.location.reload();
+          });
         } catch (error) {
           console.log(error);
         }
@@ -112,8 +115,8 @@ $.get("http://localhost:3000/kiln/", (result) => {
           weight: $("#weight_edit").val(),
           date_at: $("#date_at_edit").val(),
         };
-        await $.post("http://localhost:3000/kiln/edit", data, (result) => {
-          // window.location.reload();
+        await $.post(`${api_charcoal}/kiln/edit`, data).done((e) => {
+          window.location.reload();
         });
       } catch (error) {
         alert(error.responseJSON.errors[0].msg);
