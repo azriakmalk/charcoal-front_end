@@ -20,9 +20,12 @@ $(document).ready(function () {
     format: "DD-MM-YYYY LT",
   });
 
+  let role = sessionStorage.getItem('role');
+  if(role !== 'Admin') window.location = "./dashboard.html";
+
   $(".timepicker").timepicker({
     showInputs: false,
-  });
+  });  
 });
 
 $.get(`${api_charcoal}/items/`, (result) => {

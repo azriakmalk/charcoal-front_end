@@ -17,6 +17,9 @@ $(document).ready(function () {
     sessionStorage.clear();
   });
   $(".sidebar-menu").tree();
+  
+  let role = sessionStorage.getItem('role');
+  if(role !== 'Admin') $('.admin').hide();
 });
 
 $.get(`${api_charcoal}/dashboard/`, (result) => {

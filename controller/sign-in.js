@@ -29,7 +29,10 @@ $(document).ready(async () => {
     try {
       e.preventDefault();
       await $.post(`${api_charcoal}/users/login`, data, (result) => {
+        const payload = JSON.parse(atob(result.token.split('.')[1])).user;
         sessionStorage.setItem("x-auth-token", `${result.token}`);
+        sessionStorage.setItem("user",`${payload.username}`);
+        sessionStorage.setItem("role",`${payload.role}`);
         window.location = "./dashboard.html";
       });
     } catch (error) {

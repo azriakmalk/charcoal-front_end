@@ -19,6 +19,9 @@ $(document).ready(function () {
   $("#dtpicker").datetimepicker({
     format: "YYYY-MM-DD HH:mm",
   });
+  
+  let role = sessionStorage.getItem('role');
+  if(role !== 'Admin') window.location = "./dashboard.html";
 });
 
 $.get(`${api_charcoal}/transaction/`, (result) => {

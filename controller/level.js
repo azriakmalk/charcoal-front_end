@@ -19,6 +19,9 @@ $(document).ready(function () {
   $("#dtpicker").datetimepicker({
     format: "DD-MM-YYYY LT",
   });
+  
+  let role = sessionStorage.getItem('role');
+  if(role !== 'Admin') window.location = "./dashboard.html";
 
   $(".timepicker").timepicker({
     showInputs: false,

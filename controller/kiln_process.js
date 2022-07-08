@@ -20,6 +20,9 @@ $(document).ready(function () {
   $(".dtpicker").datetimepicker({
     format: "YYYY-MM-DD HH:mm",
   });
+  
+  let role = sessionStorage.getItem('role');
+  if(role !== 'Admin') $('.admin').hide();
 
   $(".timepicker").timepicker({
     showInputs: false,
