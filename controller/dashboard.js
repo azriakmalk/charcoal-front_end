@@ -19,6 +19,9 @@ $(document).ready(function () {
   $(".sidebar-menu").tree();
   
   let role = sessionStorage.getItem('role');
+  let username = sessionStorage.getItem('user');
+  $('#username').append(`<b>${username}</b>`);
+  $('#role').append(`<b>${role}</b>`);
   if(role !== 'Admin') $('.admin').hide();
 });
 

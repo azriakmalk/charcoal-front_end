@@ -22,6 +22,9 @@ $(document).ready(function () {
   });
   
   let role = sessionStorage.getItem('role');
+  let username = sessionStorage.getItem('user');
+  $('#username').append(`<b>${username}</b>`);
+  $('#role').append(`<b>${role}</b>`);
   if(role !== 'Admin') $('.admin').hide();
 
   $(".timepicker").timepicker({
