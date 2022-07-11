@@ -21,7 +21,7 @@ $(document).ready(function () {
   });
   
   let role = sessionStorage.getItem('role');
-  if(role !== 'Admin') window.location = "./dashboard.html";
+  if(role !== 'Admin') $('.admin').hide();
 });
 
 $.get(`${api_charcoal}/transaction/`, (result) => {
