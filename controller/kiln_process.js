@@ -129,7 +129,10 @@ $.get(`${api_charcoal}/kiln/`, (result) => {
       }
     });
   });
+
+  $('#btn-excel').attr('href',`${api_charcoal}/download/kiln_process`);
 });
+
 
 //   $(function () {
 

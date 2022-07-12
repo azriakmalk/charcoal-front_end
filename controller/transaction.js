@@ -99,6 +99,8 @@ $.get(`${api_charcoal}/transaction/`, (result) => {
       });
   });
 
+  $('#btn-excel').attr('href',`${api_charcoal}/download/transaction`);
+
   // $('.btn-edit').on(`click`, (e) => {
   //    const id_user = $(e.target).attr('data-id-user');
   //    let user = users.find(user => user.id == id_user );
