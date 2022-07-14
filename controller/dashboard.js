@@ -35,7 +35,7 @@ $.get(`${api_charcoal}/dashboard/`, (result) => {
   raw_materials.forEach((raw, i) => {
     raw_box += `<span class="info-box-number">${raw.weight} ${raw.name}</span>`;
     if (i + 1 === raw_materials.length) {
-      raw_box += `<span class="progress-description">Available stock is safe</span>`;
+      raw_box += `<span class="progress-description">${raw.notif}</span>`;
     }
   });
 

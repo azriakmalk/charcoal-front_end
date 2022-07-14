@@ -130,6 +130,12 @@ $.get(`${api_charcoal}/kiln/`, (result) => {
     });
   });
 
+  $('#item').on('change', (e) => {
+    let value = e.target.value;
+    let data = items.find((item) => item.id == value);
+    $('#raw_info').text(`Stock available ${new Intl.NumberFormat(`en-EN`).format(data.stock_raw)}`)
+  });
+
   $('#btn-excel').attr('href',`${api_charcoal}/download/kiln_process`);
 });
 
