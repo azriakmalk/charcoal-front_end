@@ -56,20 +56,23 @@ $.get(`${api_charcoal}/level/`, (result) => {
   $("#example2 > tbody").append(tbody);
 
   $("#btn-save").on("click", async (e) => {
-    e.preventDefault();
     try {
       let data = {
         name: $("#name").val(),
         description: $("#desc").val(),
       };
-      $.ajax({
-        type: "POST",
-        url: `${api_charcoal}/level/add`,
-        data: data,
-        success : (e) => {
-          window.location.reload();
-        }
-      });
+      
+      if(data.name != '' && data.description != ''){
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: `${api_charcoal}/level/add`,
+          data: data,
+          success : (e) => {
+            window.location.reload();
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
     }

@@ -69,20 +69,24 @@ $.get(`${api_charcoal}/kiln/`, (result) => {
   $("#item_edit").append(option);
 
   $("#btn-save").on("click", async (e) => {
-    e.preventDefault();
     try {
       let data = {
         id_item: $("#item").val(),
         weight: $("#weight").val(),
         date_at: $("#date_at").val(),
       };
-      await $.post(`${api_charcoal}/kiln/add`, data, (result) => {
-        if (result.saveKiln) {
-          window.location.reload();
-        } else {
-          alert(result.message);
-        }
-      });
+
+      if(data.id_item && data.weight != '' && data.date_at != '') {
+        e.preventDefault();
+        await $.post(`${api_charcoal}/kiln/add`, data, (result) => {
+          if (result.saveKiln) {
+            window.location.reload();
+          } else {
+            alert(result.message);
+          }
+        });       
+      };
+      
     } catch (error) {
       console.log(error);
     }

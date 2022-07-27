@@ -66,16 +66,18 @@ $.get(`${api_charcoal}/transaction/`, (result) => {
 
   $("#btn-save").on("click", async (e) => {
     try {
-      e.preventDefault();
       let data = {
         id_item: $("#item").val(),
         date_in: $("#date_in").val(),
         delivery_note: $("#delivery_note").val(),
         weight: $("#weight").val(),
       };
-      await $.post(`${api_charcoal}/transaction/add`, data).done((e) => {
-        window.location.reload();
-      });
+      if(data.id_item && data.date_in != '' && data.delivery_note != '' && data.weight != ''){
+        e.preventDefault();
+        await $.post(`${api_charcoal}/transaction/add`, data).done((e) => {
+          window.location.reload();
+        });
+      }
     } catch (error) {
       alert(error.responseJSON.errors[0].msg);
     }

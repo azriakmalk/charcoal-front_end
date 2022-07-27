@@ -75,15 +75,19 @@ $.get(`${api_charcoal}/items/`, (result) => {
 
   $("#btn-save").on("click", async (e) => {
     try {
-      e.preventDefault();
       let data = {
         name: $("#name").val(),
         id_category: $("#category").val(),
         id_raw: $("#raw").val(),
       };
-      await $.post(`${api_charcoal}/items/add`, data).done((e) => {
-        window.location.reload();
-      });
+
+      if(data.name != '' && data.id_category){
+        if(data.id_category == 2 && !data.id_raw) return
+        e.preventDefault();
+        await $.post(`${api_charcoal}/items/add`, data).done((e) => {
+          window.location.reload();
+        });
+      }
     } catch (error) {
       console.log(error);
     }

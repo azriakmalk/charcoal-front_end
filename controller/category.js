@@ -56,15 +56,19 @@ $.get(`${api_charcoal}/category/`, (result) => {
   $("#example2 > tbody").append(tbody);
 
   $("#btn-save").on("click", async (e) => {
-    e.preventDefault();
     try {
       let data = {
         name: $("#name").val(),
         description: $("#desc").val(),
       };
-      await $.post(`${api_charcoal}/category/add`, data).done((e) => {
-        window.location.reload();
-      });
+
+      if(data.name != '' && data.description != ''){
+        e.preventDefault();
+        await $.post(`${api_charcoal}/category/add`, data).done((e) => {
+          window.location.reload();
+        });
+      }
+      
     } catch (error) {
       console.log(error);
     }
@@ -94,6 +98,9 @@ $.get(`${api_charcoal}/category/`, (result) => {
     let category = categorys.find((category) => category.id == id_category);
     $("#name_edit").val(category.name);
     $("#desc_edit").val(category.description);
+
+    if(data.name === '') return alert('Category Name tidak boleh kosong!');
+    if(data.description === '') return alert('Description tidak boleh kosong!');
 
     $("#edit-category").on("click", async (e) => {
       try {

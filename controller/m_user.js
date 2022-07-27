@@ -67,15 +67,18 @@ $.get(`${api_charcoal}/users/`, (result) => {
 
   $("#btn-save").on("click", async (e) => {
     try {
-      e.preventDefault();
       let data = {
         username: $("#username").val(),
         password: $("#password").val(),
         id_level: $("#level").val(),
       };
-      await $.post(`${api_charcoal}/users/add`, data).done((e) => {
-        window.location.reload();
-      });
+      
+      if(data.username != '' && data.password != '' && data.id_level){
+        e.preventDefault();
+        await $.post(`${api_charcoal}/users/add`, data).done((e) => {
+          window.location.reload();
+        });
+      }
     } catch (error) {
       alert(error.responseJSON.errors[0].msg);
     }
