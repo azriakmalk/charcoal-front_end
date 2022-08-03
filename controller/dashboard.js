@@ -28,9 +28,12 @@ $(document).ready(function () {
 $.get(`${api_charcoal}/dashboard/`, (result) => {
   let raw_materials = result.raw_materials;
   let production_goods = result.production_goods;
+  let production_goods_sold = result.production_goods_sold;
   let total_production = result.total_production_goods;
+  let total_production_goods_sold = result.total_production_goods_sold;
   let raw_box = "";
   let production_box = "";
+  let production_sold_box ="";
 
   raw_materials.forEach((raw, i) => {
     raw_box += `<span class="info-box-number">${raw.weight} ${raw.name}</span>`;
@@ -45,6 +48,15 @@ $.get(`${api_charcoal}/dashboard/`, (result) => {
       production_box += `<span class="progress-description"> ${total_production} Total Production </span>`;
     }
   });
+
+  production_goods_sold.forEach((production, i) => {
+    production_sold_box += `<span class="info-box-number">${production.weight} ${production.name}</span>`;
+    if (i + 1 === production_goods.length) {
+      production_sold_box += `<span class="progress-description"> ${total_production_goods_sold} Total Production </span>`;
+    }
+  });  
+
   $("#raw_material").append(raw_box);
   $("#production_goods").append(production_box);
+  $("#production_goods_sold").append(production_sold_box);
 });

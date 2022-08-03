@@ -28,12 +28,12 @@ $(document).ready(function () {
 });
 
 $.get(`${api_charcoal}/sale/`, (result) => {
-  let sale = result.sale
+  let sales = result.sales
   let items = result.items;
   let tbody = "";
   let option = "";
 
-  sale.forEach((sale) => {
+  sales.forEach((sale) => {
     tbody += `<tr>
                                 <td>
                                    <div class="btn-group">
@@ -45,7 +45,7 @@ $.get(`${api_charcoal}/sale/`, (result) => {
                                       </ul>
                                    </div>
                                 </td>
-                                <td>${sale.name}</td>
+                                <td>${sale.name_item}</td>
                                 <td>${sale.date}</td>
                                 <td>${sale.username}</td>
                                 <td>${sale.weight}</td>
